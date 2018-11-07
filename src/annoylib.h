@@ -721,7 +721,7 @@ class AnnoyIndexInterface {
   virtual void add_item(S item, const T* w) = 0;
   virtual void build(int q) = 0;
   virtual void unbuild() = 0;
-  virtual bool save(const char* filename, bool prefault=false) = 0;
+  virtual bool save(const char* filename) = 0;
   virtual void unload() = 0;
   virtual bool load(const char* filename, bool prefault=false) = 0;
   virtual T get_distance(S i, S j) const = 0;
