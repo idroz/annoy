@@ -68,7 +68,7 @@ public:
   };
   void build(int q) { _index.build(q); };
   void unbuild() { _index.unbuild(); };
-  bool save(const char* filename, bool prefault) { return _index.save(filename, prefault); };
+  bool save(const char* filename) { return _index.save(filename); };
   void unload() { _index.unload(); };
   bool load(const char* filename, bool prefault) { return _index.load(filename, prefault); };
   float get_distance(int32_t i, int32_t j) const { return _index.get_distance(i, j); };
@@ -192,14 +192,13 @@ static PyObject *
 py_an_save(py_annoy *self, PyObject *args, PyObject *kwargs) {
   char *filename;
   bool res = false;
-  bool prefault = false;
   if (!self->ptr) 
     return NULL;
-  static char const * kwlist[] = {"fn", "prefault", NULL};
-  if (!PyArg_ParseTupleAndKeywords(args, kwargs, "s|b", (char**)kwlist, &filename, &prefault))
+  static char const * kwlist[] = {"fn", NULL};
+  if (!PyArg_ParseTupleAndKeywords(args, kwargs, "s", (char**)kwlist, &filename))
     return NULL;
 
-  res = self->ptr->save(filename, prefault);
+  res = self->ptr->save(filename);
 
   if (!res) {
     PyErr_SetFromErrno(PyExc_IOError);
